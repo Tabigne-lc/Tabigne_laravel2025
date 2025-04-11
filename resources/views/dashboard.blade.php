@@ -54,6 +54,7 @@
             <div class="info-card col-md-3">
                 <h5>Messages</h5>
                 <p>5 unread messages.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum distinctio a dolorem culpa repellendus nemo fugiat illo, ducimus quaerat doloremque rerum explicabo expedita quod recusandae tempora earum fuga obcaecati? Odio.</p>
             </div>
         </div>
     </div>

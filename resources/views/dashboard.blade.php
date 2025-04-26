@@ -6,59 +6,82 @@
     <title>Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; background: #d2c3e0; }
-        .nav-bar { background: #5c5470; padding: 10px; text-align: center; }
-        .nav-bar a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-        .dashboard-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 40px auto;
-            width: 80%;
-            text-align: center;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #d2c3e0;
         }
-        .dashboard-title { color: #4a3b69; font-size: 2rem; }
-        .info-card {
-            background: #b5a1d4;
-            padding: 20px;
-            border-radius: 10px;
+
+        .nav-bar {
+            background: #5c5470;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-bar a {
             color: white;
+            margin: 0 20px;
+            text-decoration: none;
             font-weight: bold;
-            text-align: center;
-            margin: 10px;
+            font-size: 1.1rem;
         }
-        .info-card p { font-weight: normal; }
+
+        .dashboard-container {
+            margin: 50px auto;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .dashboard-title {
+            text-align: center;
+            color: #4a3b69;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .card-box {
+            background: #b5a1d4;
+            border-radius: 15px;
+            padding: 25px;
+            color: white;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-box h4 {
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #5c5470;
+        }
     </style>
 </head>
 <body>
+
     <div class="nav-bar">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="edit_profile.html">Edit Profile</a>
-        <a href="register.html">Register</a>
-        <a href="uploaded_files.html">Uploaded Files</a>
-        <a href="users.html">Users</a>
+        <a href="{{ route('dashboard') }}">Dashboard</a>
+        <a href="{{ route('edit-password') }}">Edit Password</a>
+        <a href="{{ route('edit-profile') }}">Edit Profile</a>
+        <a href="{{ route('register') }}">Register</a>
+        <a href="{{ route('uploaded-files') }}">Uploaded Files</a>
+        <a href="{{route('users')}}">Users</a>
     </div>
-    
+
     <div class="dashboard-container">
-        <h2 class="dashboard-title">Dashboard</h2>
-        <div class="d-flex justify-content-center">
-            <div class="info-card col-md-3">
-                <h5>Recent Uploads</h5>
-                <p>3 new files uploaded.</p>
-            </div>
-            <div class="info-card col-md-3">
-                <h5>Profile Views</h5>
-                <p>50 views this week.</p>
-            </div>
-            <div class="info-card col-md-3">
-                <h5>Messages</h5>
-                <p>5 unread messages.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum distinctio a dolorem culpa repellendus nemo fugiat illo, ducimus quaerat doloremque rerum explicabo expedita quod recusandae tempora earum fuga obcaecati? Odio.</p>
-            </div>
-        </div>
-    </div>
-    
+        <h2 class="dashboard-title">Welcome to Your Dashboard!</h2>
+
+      
+
+   
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

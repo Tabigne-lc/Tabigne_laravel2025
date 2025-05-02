@@ -1,10 +1,14 @@
+<!-- ... same <head> section ... -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
+    <title>Document</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
     <style>
         body { font-family: Arial, sans-serif; background: #d1c1e1; }
         .nav-bar { background: #7b89d5; padding: 10px; text-align: center; }
@@ -25,34 +29,85 @@
     </style>
 </head>
 <body>
-    <div class="nav-bar">
-    <a href="{{ route('dashboard') }}">Dashboard</a>
-        <a href="{{ route('edit-password') }}">Edit Password</a>
-        <a href="{{ route('edit-profile') }}">Edit Profile</a>
-        <a href="{{ route('register') }}">Register</a>
-        <a href="{{ route('uploaded-files') }}">Uploaded Files</a>
-        <a href="{{route('users')}}">Users</a>
-    </div>
-    
+
+@include('nav')
+
+    @if (session('success') || $errors->any())
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
+            <div class="toast fade show shadow-lg text-white {{ session('success') ? 'bg-success' : 'bg-danger' }}"
+                role="alert" style="min-width: 300px;">
+                <div class="d-flex">
+                    <div class="toast-body fs-6">
+                        @if(session('success'))
+                            {{ session('success') }}
+                        @else
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="profile-container">
         <h2 class="profile-title">Edit Profile</h2>
-        <form>
+        <form action="{{ route('profile.update') }}" method="POST">
+            @csrf
             <div class="form-group">
-                <label for="name">Name </label>
-                <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                <label for="first_name">First Name</label>
+                <input type="text"
+                       class="form-control @error('first_name') is-invalid @enderror"
+                       id="first_name" name="first_name"
+                       value="{{ old('first_name', $user->first_name ?? '') }}">
+                @error('first_name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
+
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text"
+                       class="form-control @error('last_name') is-invalid @enderror"
+                       id="last_name" name="last_name"
+                       value="{{ old('last_name', $user->last_name ?? '') }}">
+                @error('last_name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="username" class="form-control" id="username" placeholder="Enter username" required>
+                <input type="text"
+                       class="form-control @error('username') is-invalid @enderror"
+                       id="username" name="username"
+                       value="{{ old('username', $user->username ?? '') }}">
+                @error('username')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-        </form>
 
-      
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        </form>
     </div>
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastEl = document.querySelector('.toast');
+            if (toastEl) {
+                const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+                toast.show();
+            }
+        });
+    </script>
 </body>
 </html>
+
+
+

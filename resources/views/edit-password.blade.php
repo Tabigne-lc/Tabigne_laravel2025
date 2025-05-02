@@ -25,38 +25,74 @@
     </style>
 </head>
 <body>
-    <div class="nav-bar">
-    <a href="{{ route('dashboard') }}">Dashboard</a>
-        <a href="{{ route('edit-password') }}">Edit Password</a>
-        <a href="{{ route('edit-profile') }}">Edit Profile</a>
-        <a href="{{ route('register') }}">Register</a>
-        <a href="{{ route('uploaded-files') }}">Uploaded Files</a>
-        <a href="{{route('users')}}">Users</a>
-    </div>
-    
+@include('nav')
+
+
+    @if (session('success') || $errors->any())
+        <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
+            <div id="feedbackToast"
+                class="toast align-items-center text-white {{ session('success') ? 'bg-success' : 'bg-danger' }} border-0"
+                role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        @if(session('success'))
+                            {{ session('success') }}
+                        @else
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="profile-container">
         <h2 class="profile-title">Edit Password</h2>
-        <form>
+        <form method="POST" action="{{ route('password.update') }}">
+            @csrf
             <div class="form-group">
-                <label for="password">Old Password</label>
-                <input type="text" class="form-control" id="pass" placeholder="Enter your old password" required>
+                <label for="old_password">Old Password</label>
+                <input type="password" class="form-control @error('old_password') is-invalid @enderror"
+                    id="old_password" name="old_password" placeholder="Enter your old password" required>
+                @error('old_password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
-                <label for="password">New Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter new password" required>
+                <label for="new_password">New Password</label>
+                <input type="password" class="form-control @error('new_password') is-invalid @enderror"
+                    id="new_password" name="new_password" placeholder="Enter new password" required>
+                @error('new_password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
-                <label for="password">Confirm New Password</label>
-                <input type="password" class="form-control" id="newpass" placeholder="Confirm New Password" required>
+                <label for="confirm_password">Confirm New Password</label>
+                <input type="password" class="form-control @error('confirm_password') is-invalid @enderror"
+                    id="confirm_password" name="confirm_password" placeholder="Confirm New Password" required>
+                @error('confirm_password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
-
-      
     </div>
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastEl = document.getElementById('feedbackToast');
+            if (toastEl) {
+                const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+                toast.show();
+            }
+        });
+    </script>
 </body>
 </html>

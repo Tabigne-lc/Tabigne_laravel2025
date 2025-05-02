@@ -16,7 +16,7 @@ class AuthController extends Controller
 
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
-                session(['user' => $user]);
+                session(['user' => $user->id]);
                 return redirect()->route('dashboard');
             } else {
                 return back()->withErrors(['password' => 'Incorrect password.'])->withInput();
@@ -25,4 +25,14 @@ class AuthController extends Controller
 
         return back()->withErrors(['username' => 'Username not found.'])->withInput();
     }
+
+    public function logout(Request $request)
+{
+    $request->session()->forget('user');              // Remove the user session
+    $request->session()->invalidate();                // Invalidate the session
+    $request->session()->regenerateToken();           // Regenerate CSRF token for security
+
+    return redirect()->route('login')->with('status', 'You have been logged out.');
+}
+
 }

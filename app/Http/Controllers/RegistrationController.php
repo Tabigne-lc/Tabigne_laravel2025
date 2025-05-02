@@ -15,10 +15,10 @@ class RegistrationController extends Controller
     {
         $user = new Usersinfo;
         $user->id = Str::uuid();
-        $user->first_name = $request->firstname;
-        $user->last_name = $request->lastname;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->sex = $request->sex;
-        $user->birthday = $request->bod;
+        $user->birthday = $request->birthday;
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);

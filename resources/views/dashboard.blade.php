@@ -66,14 +66,8 @@
 </head>
 <body>
 
-    <div class="nav-bar">
-        <a href="{{ route('dashboard') }}">Dashboard</a>
-        <a href="{{ route('edit-password') }}">Edit Password</a>
-        <a href="{{ route('edit-profile') }}">Edit Profile</a>
-        <a href="{{ route('register') }}">Register</a>
-        <a href="{{ route('uploaded-files') }}">Uploaded Files</a>
-        <a href="{{route('users')}}">Users</a>
-    </div>
+@include('nav')
+
 
     <div class="dashboard-container">
         <h2 class="dashboard-title">Welcome to Your Dashboard!</h2>

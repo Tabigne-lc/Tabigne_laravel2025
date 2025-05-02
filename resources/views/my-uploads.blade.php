@@ -8,34 +8,92 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        .filter-card {
-            background-color: #4b70b4fa;
-            border: 1px solid #b3a8e1;
-            border-radius: 8px;
-            padding: 1rem;
+        body {
+            background-color: #d1c1e1;
         }
 
-        .nav-bar { background: #7b89d5; padding: 10px; text-align: center; }
-        .nav-bar a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .nav-bar {
+            background: #7b89d5;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .nav-bar a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .filter-card {
+            background-color: #b3a8e1;
+            border: 2px solid #4b0b4;
+            border-radius: 8px;
+            padding: 1rem;
+            color: #4b0b4;
+        }
+
         .profile-container {
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(216, 151, 194, 0.1);
             margin: 40px auto;
             width: 50%;
         }
-        .profile-title { color: #4b70b4; font-size: 2rem; text-align: center; }
-        .btn-primary { background: #b3a8e1; border-color: #b3a8e1; color: white; }
-        .btn-primary:hover { background: #9e91c9; border-color: #9e91c9; }
-        .btn-success { background: #e5a4c2; border-color: #e5a4c2; color: white; }
-        .btn-success:hover { background: #d88aad; border-color: #d88aad; }
+
+        .profile-title {
+            color: #4b0b4;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #b3a8e1;
+            border-color: #b3a8e1;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #7b89d5;
+            border-color: #7b89d5;
+        }
+
+        .btn-success {
+            background: #e5a4c2;
+            border-color: #e5a4c2;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #d88aad;
+            border-color: #d88aad;
+        }
+
+        .btn-danger {
+            background: #4b0b4;
+            border-color: #4b0b4;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #3a0938;
+            border-color: #3a0938;
+        }
+
+        .table-light th {
+            background-color: #b3a8e1;
+            color: #4b0b4;
+        }
+
+        h2 {
+            color: #4b0b4;
+        }
     </style>
 </head>
 
 <body>
 @include('nav')
-
 
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -56,8 +114,7 @@
                 <div class="col-md-4">
                     <select name="type" class="form-select">
                         <option value="">All File Types</option>
-                        <option value="application/pdf" {{ request()->input('type') == 'application/pdf' ? 'selected' : '' }}>PDF
-                        </option>
+                        <option value="application/pdf" {{ request()->input('type') == 'application/pdf' ? 'selected' : '' }}>PDF</option>
                         <option value="image/png" {{ request()->input('type') == 'image/png' ? 'selected' : '' }}>PNG</option>
                         <option value="image/jpeg" {{ request()->input('type') == 'image/jpeg' ? 'selected' : '' }}>JPEG</option>
                         <option value="application/vnd.openxmlformats-officedocument.wordprocessingml.document" {{ request()->input('type') == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ? 'selected' : '' }}>DOCX</option>

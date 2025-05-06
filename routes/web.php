@@ -4,10 +4,14 @@ use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
     return view('welcome');
@@ -61,4 +65,22 @@ Route::middleware([])->group(function () {
     Route::get('/my-uploads', [UploadController::class, 'index'])->name('upload.index');
     Route::get('/download/{upload}', [UploadController::class, 'download'])->name('upload.download');
     Route::delete('/upload/{upload}', [UploadController::class, 'destroy'])->name('upload.destroy');
+
+
+ // reset-password
+ // Add this route for password reset request
+ Route::get('/verify-email', [EmailVerificationController::class, 'showVerificationForm'])->name('verify.email.form');
+ Route::post('/verify-email', [EmailVerificationController::class, 'sendVerificationEmail'])->name('verify.email.send');
+ Route::get('/verify-email-token/{token}', [EmailVerificationController::class, 'verifyToken'])->name('verify.email.token');
+ 
+ 
+ 
+ 
+ Route::get('/forgot-password', [ForgotPasswordController::class, 'showRequestForm'])->name('password.request');
+ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+ 
+ 
+ 
+ Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.change');
 });

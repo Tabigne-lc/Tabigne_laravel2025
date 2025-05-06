@@ -8,92 +8,93 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        body {
-            background-color: #d1c1e1;
-        }
+       body {
+    background-color: #d1c1e1; /* Prelude */
+}
 
-        .nav-bar {
-            background: #7b89d5;
-            padding: 10px;
-            text-align: center;
-        }
+.nav-bar {
+    background: #7b89d5; /* Chetwode Blue */
+    padding: 10px;
+    text-align: center;
+}
 
-        .nav-bar a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+.nav-bar a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-        .filter-card {
-            background-color: #b3a8e1;
-            border: 2px solid #4b0b4;
-            border-radius: 8px;
-            padding: 1rem;
-            color: #4b0b4;
-        }
+.filter-card {
+    background-color: #b3a8e1; /* Cold Purple */
+    border: 2px solid #4b70b4; /* San Marino */
+    border-radius: 8px;
+    padding: 1rem;
+    color: #4b70b4; /* San Marino */
+}
 
-        .profile-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(216, 151, 194, 0.1);
-            margin: 40px auto;
-            width: 50%;
-        }
+.profile-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(216, 151, 194, 0.1); /* light pinkish shadow */
+    margin: 40px auto;
+    width: 50%;
+}
 
-        .profile-title {
-            color: #4b0b4;
-            font-size: 2rem;
-            text-align: center;
-        }
+.profile-title {
+    color: #4b70b4; /* San Marino */
+    font-size: 2rem;
+    text-align: center;
+}
 
-        .btn-primary {
-            background: #b3a8e1;
-            border-color: #b3a8e1;
-            color: white;
-        }
+.btn-primary {
+    background: #b3a8e1; /* Cold Purple */
+    border-color: #b3a8e1;
+    color: white;
+}
 
-        .btn-primary:hover {
-            background: #7b89d5;
-            border-color: #7b89d5;
-        }
+.btn-primary:hover {
+    background: #7b89d5; /* Chetwode Blue */
+    border-color: #7b89d5;
+}
 
-        .btn-success {
-            background: #e5a4c2;
-            border-color: #e5a4c2;
-            color: white;
-        }
+.btn-success {
+    background: #e5a4c2; /* Kobi */
+    border-color: #e5a4c2;
+    color: white;
+}
 
-        .btn-success:hover {
-            background: #d88aad;
-            border-color: #d88aad;
-        }
+.btn-success:hover {
+    background: #d88aad; /* Slightly deeper Kobi, feel free to adjust */
+    border-color: #d88aad;
+}
 
-        .btn-danger {
-            background: #4b0b4;
-            border-color: #4b0b4;
-            color: white;
-        }
+.btn-danger {
+    background: #4b70b4; /* San Marino */
+    border-color: #4b70b4;
+    color: white;
+}
 
-        .btn-danger:hover {
-            background: #3a0938;
-            border-color: #3a0938;
-        }
+.btn-danger:hover {
+    background: #3a0938; /* Dark purple for contrast */
+    border-color: #3a0938;
+}
 
-        .table-light th {
-            background-color: #b3a8e1;
-            color: #4b0b4;
-        }
+.table-light th {
+    background-color: #b3a8e1; /* Cold Purple */
+    color: #4b70b4; /* San Marino */
+}
 
-        h2 {
-            color: #4b0b4;
-        }
+h2 {
+    color: #4b70b4; /* San Marino */
+}
+
     </style>
 </head>
 
 <body>
-@include('nav')
+    @include('nav')
 
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -102,7 +103,7 @@
         </div>
 
         @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
         <div class="filter-card mb-4">
@@ -142,25 +143,25 @@
                 </thead>
                 <tbody>
                     @forelse ($uploads as $upload)
-                        <tr>
-                            <td>{{ $upload->original_filename }}</td>
-                            <td>{{ $upload->type }}</td>
-                            <td>{{ $upload->created_at->format('Y-m-d H:i') }}</td>
-                            <td>
-                                <a href="{{ route('upload.download', $upload) }}"
-                                    class="btn btn-sm btn-success me-1">Download</a>
-                                <form action="{{ route('upload.destroy', $upload) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" onclick="return confirm('Are you sure?')"
-                                        class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $upload->original_filename }}</td>
+                        <td>{{ $upload->type }}</td>
+                        <td>{{ $upload->created_at->format('Y-m-d H:i') }}</td>
+                        <td>
+                            <a href="{{ route('upload.download', $upload) }}"
+                                class="btn btn-sm btn-success me-1">Download</a>
+                            <form action="{{ route('upload.destroy', $upload) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Are you sure?')"
+                                    class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
                     @empty
-                        <tr>
-                            <td colspan="4" class="text-center text-muted">No uploaded files found.</td>
-                        </tr>
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">No uploaded files found.</td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>

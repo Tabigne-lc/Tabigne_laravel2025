@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #d1c1e1; /* Prelude */
+            background-color: #d1c1e1;
+            /* Prelude */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,7 +26,8 @@
         }
 
         h2 {
-            color: #4b70b4; /* San Marino */
+            color: #4b70b4;
+            /* San Marino */
             margin-bottom: 30px;
             text-align: center;
         }
@@ -46,7 +49,8 @@
         }
 
         .btn-login {
-            background-color: #e5a4c2; /* Kobi */
+            background-color: #e5a4c2;
+            /* Kobi */
             color: white;
             border: none;
             padding: 12px;
@@ -57,7 +61,8 @@
         }
 
         .btn-login:hover {
-            background-color: #b3a8e1; /* Cold Purple */
+            background-color: #b3a8e1;
+            /* Cold Purple */
         }
 
         .btn-outline-secondary {
@@ -96,11 +101,12 @@
         }
     </style>
 </head>
+
 <body>
     @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
     @endif
 
     <div class="login-container">
@@ -114,7 +120,7 @@
                     class="form-control @error('username') is-invalid @enderror"
                     placeholder="Enter your username" value="{{ old('username') }}">
                 @error('username')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -129,12 +135,17 @@
                     </span>
                 </div>
                 @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
             <button type="submit" class="btn-login">Login</button>
             <a href="{{ route('register') }}" class="btn btn-outline-secondary">Register</a>
+
+            <!-- Add this line to provide the "Forgot Password?" link -->
+            <p class="text-center mt-3">
+                <a href="{{ route('password.request') }}">Forgot Password?</a>
+            </p>
         </form>
     </div>
 
@@ -155,4 +166,5 @@
         }
     </script>
 </body>
+
 </html>

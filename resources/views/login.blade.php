@@ -145,7 +145,20 @@
             <!-- Add this line to provide the "Forgot Password?" link -->
             <p class="text-center mt-3">
                 <a href="{{ route('password.request') }}">Forgot Password?</a>
+                <a href="{{ route('verify.email.form') }}" class="mx-3">Verify Your Email</a>
             </p>
+            @if($errors->any())
+            <div class="mt-3">
+                @if ($errors->has('email'))
+                    <div class="alert alert-warning text-center">
+                        {{ $errors->first('email') }}
+                    </div>
+                @else
+                    <div class="alert alert-warning text-danger text-center">{{ $errors->first() }}</div>
+                @endif
+            </div>
+        @endif
+    </div>
         </form>
     </div>
 
@@ -163,6 +176,7 @@
                 icon.classList.remove("bi-eye");
                 icon.classList.add("bi-eye-slash");
             }
+
         }
     </script>
 </body>

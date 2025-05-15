@@ -7,10 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class EmailVerificationNotification extends Notification
+class VerifyEmail extends Notification
 {
     use Queueable;
-    protected $token;
+    public $token;
 
     /**
      * Create a new notification instance.
@@ -36,16 +36,14 @@ class EmailVerificationNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $url = route('verify.email.token', ['token' => $this->token]);
+        $url = url("/verify-email/{$this->token}");
 
         return (new MailMessage)
-            ->subject('Verify Your Email Address')
-            ->greeting('Hi ' . $notifiable->username . ',')
+            ->subject('Confirm Your Email')
             ->line('Click the button below to verify your email address.')
-            ->action('Verify My Email', $url)
-            ->line('If you did not request this, you can ignore this email.');
+            ->action('Verify Email', $url)
+            ->line('This link will expire in 3 days.');
     }
-    
 
     /**
      * Get the array representation of the notification.

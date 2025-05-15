@@ -69,8 +69,10 @@
 @include('nav')
 
 
-    <div class="dashboard-container">
-        <h2 class="dashboard-title">Welcome to Your Dashboard!</h2>
+
+<div class="container">
+        <h2>Welcome to Your Dashboard,  {{ session('user')->first_name }}!</h2>
+    </div>
 
       
 

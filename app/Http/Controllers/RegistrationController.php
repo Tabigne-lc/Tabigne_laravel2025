@@ -1,33 +1,49 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Http\Controllers;
 
-return new class extends Migration
+use App\Http\Requests\RegisterUserRequest;
+use App\Models\Usersinfo;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Notifications\VerifyEmail;
+
+class RegistrationController extends Controller
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    //
+
+    public function save(RegisterUserRequest $request)
     {
-        //
-        Schema::table('usersinfo', function (Blueprint $table) {
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('verification_token')->nullable();
-        });
+        $user = new Usersinfo;
+        $user->id = \Str::uuid();
+        $user->first_name = $request->firstname;
+        $user->last_name = $request->lastname;
+        $user->sex = $request->sex;
+        $user->birthday = $request->bod;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = \Hash::make($request->password);
+        $user->verification_token = \Str::random(64);
+        $user->save();
+
+        $user->notify(new VerifyEmail($user->verification_token));
+
+        return view('registration-success', ['user' => $user]);
+
 
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function verifyEmail($token)
     {
-        //
-
-        Schema::table('usersinfo', function (Blueprint $table) {
-            $table->dropColumn(['email_verified_at', 'verification_token']);
-        });
+        $user = Usersinfo::where('verification_token', $token)->firstOrFail();
+    
+        $user->email_verified_at = now();
+        $user->verification_token = null;
+        $user->save();
+    
+        return redirect()->route('login')->with('success', 'Email verified! You can now log in.');
     }
-};
+    
+
+}

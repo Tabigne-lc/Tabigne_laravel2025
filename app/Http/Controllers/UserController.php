@@ -11,7 +11,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $currentUserId = session('user');
-        $currentUser = Usersinfo::find($currentUserId);
+        $currentUser = Usersinfo::find(session('user_id'));
         if (!$currentUser || $currentUser->user_type !== 'Admin') {
             abort(403, 'Access denied');
         }
@@ -38,7 +38,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $currentUserId = session('user');
-        $currentUser = Usersinfo::find($currentUserId);
+        $currentUser = Usersinfo::find(session('user_id'));
 
         // Only allow admin to delete users
         if (!$currentUser || $currentUser->user_type !== 'Admin') {

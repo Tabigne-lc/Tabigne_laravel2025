@@ -1,67 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<style>
+    body {
+        background-color: #F2EFE7;
+    }
 
-    <style>
-        .nav-bar {
-            background: #7b89d5; /* Chetwode Blue */
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .navbar {
+        background-color: #48A6A7;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 15px;
-        }
 
-        .nav-bar a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    .navbar-brand,
+    .nav-link {
+        color: white !important;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        padding: 8px 12px;
+        border-radius: 4px;
+    }
 
-        .logout-btn {
-            background-color: #4f4763;
-            color: #f3e9ff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-    </style>
-</head>
+    .nav-link:hover {
+        color: #D0EBF2 !important;
+        background-color: #3D9394;
+        transform: translateY(-2px);
+    }
 
-<body>
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background-color: #D0EBF2;
+        transition: width 0.3s ease;
+    }
 
-    <div class="nav-bar">
-        <!-- Left Side Links -->
-        <div class="nav-links">
-            <a href="{{ route('dashboard') }}">Dashboard</a>
-            <a href="{{ route('password.edit') }}">Edit Password</a>
-            <a href="{{ route('profile.edit') }}">Edit Profile</a>
-            <a href="{{ route('upload.index') }}">Uploaded Files</a>
+    .nav-link:hover::after {
+        width: 100%;
+    }
+    
 
-            @php
-            $user = \App\Models\Usersinfo::find(session('user'));
-            @endphp
+    .logout-btn {
+        background-color: #2973B2;
+        border-color: #2973B2;
+        color: white !important;
+        margin-left: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    }
 
-            @if($user && $user->user_type === 'Admin')
-            <a href="{{ route('user.list') }}">Users</a>
-            @endif
+    .logout-btn:hover {
+        background-color: #9ACBD0;
+        border-color: #9ACBD0;
+        color: white !important;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-toggler {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ route('dashboard') }}">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+            aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item"><a class="nav-link" href="{{ route('upload.index') }}">Uploaded Files</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('profile.edit') }}">Edit Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('password.edit') }}">Change Password</a></li>
+@php
+    $user = \App\Models\Usersinfo::find(session('user_id'));
+@endphp
+
+@if($user && $user->user_type === 'Admin')
+    <li class="nav-item"><a class="nav-link" href="{{ route('user.list') }}">Users</a></li>
+@endif
+            </ul>
         </div>
-
-        <!-- Right Side Logout Button -->
-        <form action="{{ route('logout') }}" method="GET">
-            @csrf
-            <button type="submit" class="logout-btn">Logout</button>
-        </form>
+        <div class="d-flex">
+            <a class="btn logout-btn" href="{{ route('login') }}">Logout</a>
+        </div>
     </div>
-
-</body>
-</html>
+</nav>

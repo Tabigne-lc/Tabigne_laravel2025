@@ -31,77 +31,108 @@
     </style>
 </head>
 <body>
-    
-    @if (session('success'))
-        <div class="alert alert-success text-center">
-            {{ session('success') }}
+    <nav class="nav bar navbar-expanded-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+
+            </a>
         </div>
-    @endif
 
-    <div class="register-container">
-        <h2 class="register-title">Register</h2>
-        <form method="POST" action="{{ route('register.save') }}">
-            @csrf
-            <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name" name="first_name" value="{{ old('first_name') }}" placeholder="Enter your first name" required>
-                @error('first_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+    </nav>
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4 shadow-sm">
+                    <h2 class="mb-3">Register</h2>
+                    <form method="POST" action="{{ route('register.save') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="firstname" class="form-label">First Name</label>
+                            <input type="text" class="form-control @error('firstname') is-invalid @enderror"
+                                id="firstname" name="firstname" value="{{ old('firstname') }}">
+                            @error('firstname')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastname" class="form-label">Last Name</label>
+                            <input type="text" class="form-control @error('lastname') is-invalid @enderror"
+                                id="lastname" name="lastname" value="{{ old('lastname') }}">
+                            @error('lastname')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="bod" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control @error('bod') is-invalid @enderror" id="bod"
+                                name="bod" value="{{ old('bod') }}">
+                            @error('bod')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="sex" class="form-label">Sex</label>
+                            <select class="form-control @error('sex') is-invalid @enderror" id="sex" name="sex">
+                                <option value="" disabled {{ old('sex') ? '' : 'selected' }}>Select</option>
+                                <option value="Male" {{ old('sex') == 'Male' ? 'selected' : '' }}>Male</option>
+                                <option value="Female" {{ old('sex') == 'Female' ? 'selected' : '' }}>Female</option>
+                            </select>
+                            @error('sex')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                name="email" value="{{ old('email') }}">
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                id="username" name="username" value="{{ old('username') }}">
+                            @error('username')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                id="password" name="password">
+                            <div id="password-strength" class="mt-1 fw-semibold"></div>
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input @error('terms') is-invalid @enderror"
+                                id="terms" name="terms" {{ old('terms') ? 'checked' : '' }}>
+                            @error('terms')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+
+                            <label class="form-check-label" for="terms">I agree with the Privacy Policy and Terms and
+                                Conditions</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                        <br><br>
+                        <a href="{{ route('login') }}" class="btn btn-secondary w-100">Go Back</a>
+                    </form>
+
+                </div>
+
             </div>
 
-            <div class="form-group">
-                <label for="last_name">Last Name</label>
-                <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name" name="last_name" value="{{ old('last_name') }}" placeholder="Enter your last name" required>
-                @error('last_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="sex">Sex</label>
-                <select class="form-control @error('sex') is-invalid @enderror" id="sex" name="sex" required>
-                    <option value="" disabled {{ old('sex') ? '' : 'selected' }}>Select your sex</option>
-                    <option value="Male" {{ old('sex') == 'Male' ? 'selected' : '' }}>Male</option>
-                    <option value="Female" {{ old('sex') == 'Female' ? 'selected' : '' }}>Female</option>
-                </select>
-                @error('sex') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="birthday">Birthday</label>
-                <input type="date" class="form-control @error('birthday') is-invalid @enderror" id="birthday" name="birthday" value="{{ old('birthday') }}" required>
-                @error('birthday') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" value="{{ old('username') }}" placeholder="Choose a username" required>
-                @error('username') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Enter your email" required>
-                @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Enter password" required>
-                <div id="password-strength" class="mt-1 fw-semibold"></div>
-                @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input @error('terms') is-invalid @enderror" id="terms" name="terms" {{ old('terms') ? 'checked' : '' }} required>
-                <label class="form-check-label" for="terms">Do you agree with our Privacy Policy and Terms and Conditions?</label>
-                @error('terms') <div class="invalid-feedback">{{ $message }}</div> @enderror
-            </div>
-
-            <button type="submit" class="btn btn-success btn-block">Register</button>
-            <br><br>
-            <a href="{{ route('login') }}" class="btn btn-secondary btn-block">Go Back</a>
-        </form>
+        </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="{{ asset('js/password-strength.js') }}"></script>
+
 </body>
+
 </html>

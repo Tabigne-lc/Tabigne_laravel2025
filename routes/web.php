@@ -46,7 +46,6 @@ Route::post('/register', [RegistrationController:: class, 'save'])->name('regist
 Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/edit-profile', [ProfileController::class, 'update'])->name('profile.update');
 
-
 //Controller for changing password
 
 Route::get('/edit-password', [PasswordController::class, 'edit'])->name('password.edit');
@@ -66,6 +65,8 @@ Route::middleware([])->group(function () {
     Route::get('/download/{upload}', [UploadController::class, 'download'])->name('upload.download');
     Route::delete('/upload/{upload}', [UploadController::class, 'destroy'])->name('upload.destroy');
 
+    //request verification
+Route::get('/verify-email/{token}', [AuthController::class, 'verifyEmail'])->name('verify.email');
 
  // reset-password
  // Add this route for password reset request

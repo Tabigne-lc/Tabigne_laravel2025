@@ -1,66 +1,84 @@
 <style>
-    body {
-        background-color: #F2EFE7;
-    }
+   body {
+    background-color: #f2efe7;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    .navbar {
-        background-color: #48A6A7;
-    }
+.navbar {
+    background: linear-gradient(90deg, #7b89d5 0%, #4b70b4 100%);
+    box-shadow: 0 4px 12px rgba(75, 112, 180, 0.6);
+    padding: 0.8rem 1.5rem;
+    position: relative;
+    z-index: 1000;
+}
 
+.navbar-brand,
+.nav-link {
+    color: white !important;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    position: relative;
+    transition: background-color 0.35s ease, color 0.35s ease, transform 0.25s ease;
+}
 
-    .navbar-brand,
-    .nav-link {
-        color: white !important;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        padding: 8px 12px;
-        border-radius: 4px;
-    }
+.nav-link:hover {
+    color: #d1c1e1 !important;
+    background-color: rgba(179, 168, 225, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(123, 137, 213, 0.4);
+}
 
-    .nav-link:hover {
-        color: #D0EBF2 !important;
-        background-color: #3D9394;
-        transform: translateY(-2px);
-    }
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 10px;
+    bottom: 6px;
+    width: 0;
+    height: 3px;
+    background-color: #d1c1e1;
+    border-radius: 2px;
+    transition: width 0.35s ease;
+}
 
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 0;
-        height: 2px;
-        background-color: #D0EBF2;
-        transition: width 0.3s ease;
-    }
+.nav-link:hover::after {
+    width: calc(100% - 20px);
+}
 
-    .nav-link:hover::after {
-        width: 100%;
-    }
-    
+.logout-btn {
+    background-color: #4b70b4;
+    border: none;
+    color: white !important;
+    margin-left: 15px;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(75, 112, 180, 0.7);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
 
-    .logout-btn {
-        background-color: #2973B2;
-        border-color: #2973B2;
-        color: white !important;
-        margin-left: 10px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    }
+.logout-btn:hover {
+    background-color: #7b89d5;
+    box-shadow: 0 6px 18px rgba(123, 137, 213, 0.9);
+    transform: scale(1.1);
+    color: white !important;
+}
 
-    .logout-btn:hover {
-        background-color: #9ACBD0;
-        border-color: #9ACBD0;
-        color: white !important;
-        transform: scale(1.1);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
+.navbar-toggler {
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
 
-    .navbar-toggler {
-        border-color: rgba(255, 255, 255, 0.5);
-    }
+.navbar-toggler:hover {
+    border-color: #b3a8e1;
+}
 
-    .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-    }
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23d1c1e1' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
 </style>
 
 <nav class="navbar navbar-expand-lg">

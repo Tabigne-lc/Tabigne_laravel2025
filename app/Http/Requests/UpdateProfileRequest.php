@@ -11,15 +11,18 @@ class UpdateProfileRequest extends FormRequest
         return true;
     }
 
-    public function rules(): array
-    {
-        $userId = session('user');
-        return [
-            'first_name' => 'required|string|max:50|regex:/^[a-zA-Z\s\'\-]+$/',
-            'last_name' => 'required|string|max:50|regex:/^[a-zA-Z\s\'\-]+$/',
-            'username' => 'required|string|max:100|unique:usersinfo,username,' . $userId . ',id',
-        ];
-    }
+public function rules(): array
+{
+    $user = session('user');
+    $userId = is_object($user) ? $user->id : ($user['id'] ?? null);
+
+    return [
+        'first_name' => 'required|string|max:50|regex:/^[a-zA-Z\s\'\-]+$/',
+        'last_name' => 'required|string|max:50|regex:/^[a-zA-Z\s\'\-]+$/',
+        'username' => 'required|string|max:100|unique:usersinfo,username,' . $userId . ',id',
+    ];
+}
+
 
     public function messages(): array
     {

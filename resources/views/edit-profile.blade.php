@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,24 @@
 
 
     <style>
-        body { font-family: Arial, sans-serif; background: #d1c1e1; }
-        .nav-bar { background: #7b89d5; padding: 10px; text-align: center; }
-        .nav-bar a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #d1c1e1;
+        }
+
+        .nav-bar {
+            background: #7b89d5;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .nav-bar a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         .profile-container {
             background: white;
             padding: 30px;
@@ -21,38 +37,62 @@
             margin: 40px auto;
             width: 50%;
         }
-        .profile-title { color: #4b70b4; font-size: 2rem; text-align: center; }
-        .btn-primary { background: #b3a8e1; border-color: #b3a8e1; color: white; }
-        .btn-primary:hover { background: #9e91c9; border-color: #9e91c9; }
-        .btn-success { background: #e5a4c2; border-color: #e5a4c2; color: white; }
-        .btn-success:hover { background: #d88aad; border-color: #d88aad; }
+
+        .profile-title {
+            color: #4b70b4;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #b3a8e1;
+            border-color: #b3a8e1;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #9e91c9;
+            border-color: #9e91c9;
+        }
+
+        .btn-success {
+            background: #e5a4c2;
+            border-color: #e5a4c2;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #d88aad;
+            border-color: #d88aad;
+        }
     </style>
 </head>
+
 <body>
 
-@include('nav')
+    @include('nav')
 
     @if (session('success') || $errors->any())
-        <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
-            <div class="toast fade show shadow-lg text-white {{ session('success') ? 'bg-success' : 'bg-danger' }}"
-                role="alert" style="min-width: 300px;">
-                <div class="d-flex">
-                    <div class="toast-body fs-6">
-                        @if(session('success'))
-                            {{ session('success') }}
-                        @else
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="Close"></button>
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
+        <div class="toast fade show shadow-lg text-white {{ session('success') ? 'bg-success' : 'bg-danger' }}"
+            role="alert" style="min-width: 300px;">
+            <div class="d-flex">
+                <div class="toast-body fs-6">
+                    @if(session('success'))
+                    {{ session('success') }}
+                    @else
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    @endif
                 </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
             </div>
         </div>
+    </div>
     @endif
 
     <div class="profile-container">
@@ -62,22 +102,22 @@
             <div class="form-group">
                 <label for="first_name">First Name</label>
                 <<input type="text"
-    class="form-control @error('first_name') is-invalid @enderror"
-    id="first_name" name="first_name"
-    value="{{ old('first_name', $user->first_name ?? '') }}">
-                @error('first_name')
+                    class="form-control @error('first_name') is-invalid @enderror"
+                    id="first_name" name="first_name"
+                    value="{{ old('first_name', $user->first_name ?? '') }}">
+                    @error('first_name')
                     <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                    @enderror
             </div>
 
             <div class="form-group">
                 <label for="last_name">Last Name</label>
                 <input type="text"
-    class="form-control @error('last_name') is-invalid @enderror"
-    id="last_name" name="last_name"
-    value="{{ old('last_name', $user->last_name ?? '') }}">
+                    class="form-control @error('last_name') is-invalid @enderror"
+                    id="last_name" name="last_name"
+                    value="{{ old('last_name', $user->last_name ?? '') }}">
                 @error('last_name')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -85,12 +125,12 @@
                 <label for="username">Username</label>
 
                 <input type="text"
-    class="form-control @error('username') is-invalid @enderror"
-    id="username" name="username"
-    value="{{ old('username', $user->username ?? '') }}">
+                    class="form-control @error('username') is-invalid @enderror"
+                    id="username" name="username"
+                    value="{{ old('username', $user->username ?? '') }}">
 
                 @error('username')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -100,16 +140,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const toastEl = document.querySelector('.toast');
             if (toastEl) {
-                const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+                const toast = new bootstrap.Toast(toastEl, {
+                    delay: 3000
+                });
                 toast.show();
             }
         });
     </script>
 </body>
+
 </html>
-
-
-

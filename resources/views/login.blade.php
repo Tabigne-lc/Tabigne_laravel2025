@@ -147,6 +147,7 @@
                 <a href="{{ route('password.request') }}">Forgot Password?</a>
                 <a href="{{ route('verify.email.form') }}" class="mx-3">Verify Your Email</a>
             </p>
+            
             @if($errors->any())
             <div class="mt-3">
                 @if ($errors->has('email'))
@@ -167,15 +168,16 @@
             const input = document.getElementById("password");
             const icon = document.getElementById("togglePasswordIcon");
 
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.remove("bi-eye-slash");
-                icon.classList.add("bi-eye");
-            } else {
-                input.type = "password";
-                icon.classList.remove("bi-eye");
-                icon.classList.add("bi-eye-slash");
-            }
+            // if (input.type === "password") {
+            //     input.type = "text";
+            //     icon.classList.remove("bi-eye-slash");
+            //     icon.classList.add("bi-eye");
+            // } else {
+            //     input.type = "password";
+            //     icon.classList.remove("bi-eye");
+            //     icon.classList.add("bi-eye-slash");
+            // }
+            
 
         }
     </script>

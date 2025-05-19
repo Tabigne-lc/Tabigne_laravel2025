@@ -29,6 +29,8 @@ class UsertableSeeder extends Seeder
                 'user_type' => 'Admin',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'email_verified_at' => null,
+                'verification_token' => Str::random(32),
             ],
             [
                 'id' => Str::uuid(),
@@ -43,6 +45,13 @@ class UsertableSeeder extends Seeder
                 'user_type' => 'Customer',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'email_verified_at' => null,
+                'verification_token' => Str::random(32),
+                
+                
+
+
+                
             ]
         ]);
     }

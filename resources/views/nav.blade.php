@@ -100,6 +100,7 @@
 
 @if($user && $user->user_type === 'Admin')
     <li class="nav-item"><a class="nav-link" href="{{ route('user.list') }}">Users</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.reports') }}">Reports</a></li>
 @endif
             </ul>
         </div>

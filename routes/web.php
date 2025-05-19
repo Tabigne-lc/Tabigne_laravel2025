@@ -12,7 +12,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-
+use App\Http\Controllers\ReportController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -84,4 +84,14 @@ Route::get('/verify-email/{token}', [AuthController::class, 'verifyEmail'])->nam
  
  Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
  Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.change');
+
+ //export route
+
+
+Route::get('/users/export', [UserController::class, 'export'])->name('user.export');
+
+//report route
+
+
+Route::get('/admin/reports', [ReportController::class, 'index'])->name('admin.reports');
 });

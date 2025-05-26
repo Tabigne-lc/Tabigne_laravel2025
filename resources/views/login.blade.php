@@ -103,6 +103,7 @@
 </head>
 
 <body>
+    {{-- Show success message if exists --}}
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -110,20 +111,25 @@
     @endif
 
     <div class="login-container">
+        {{-- Login form --}}
         <form method="POST" action="{{ route('login') }}">
-            @csrf
+            @csrf {{-- CSRF protection --}}
+            
             <h2>Login</h2>
 
+            {{-- Username input --}}
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username"
                     class="form-control @error('username') is-invalid @enderror"
                     placeholder="Enter your username" value="{{ old('username') }}">
+                {{-- Validation error for username --}}
                 @error('username')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
+            {{-- Password input with toggle eye icon --}}
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="input-group">
@@ -134,20 +140,29 @@
                         <i id="togglePasswordIcon" class="bi bi-eye-slash"></i>
                     </span>
                 </div>
+                {{-- Validation error for password --}}
                 @error('password')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
+            {{-- Submit button --}}
             <button type="submit" class="btn-login">Login</button>
+
+            {{-- Link to registration page --}}
             <a href="{{ route('register') }}" class="btn btn-outline-secondary">Register</a>
 
-            <!-- Add this line to provide the "Forgot Password?" link -->
-            <p class="text-center mt-3">
-                <a href="{{ route('password.request') }}">Forgot Password?</a>
-                <a href="{{ route('verify.email.form') }}" class="mx-3">Verify Your Email</a>
-            </p>
-            
+            {{-- Links below form for password reset and email verification --}}
+            <div class="mt-4 text-center" style="border-top: 1px solid #ccc; padding-top: 15px;">
+                <a href="{{ route('password.request') }}" style="display: block; color: #4b70b4; margin-bottom: 10px; font-size: 0.9rem;">
+                    Forgot Password?
+                </a>
+                <a href="{{ route('verify.email.form') }}" style="display: block; color: #4b70b4; font-size: 0.9rem;">
+                    Verify Your Email
+                </a>
+            </div>
+
+            {{-- Show other errors if any --}}
             @if($errors->any())
             <div class="mt-3">
                 @if ($errors->has('email'))
@@ -158,27 +173,25 @@
                     <div class="alert alert-warning text-danger text-center">{{ $errors->first() }}</div>
                 @endif
             </div>
-        @endif
-    </div>
+            @endif
         </form>
     </div>
 
     <script>
+        // Toggle password visibility when icon clicked
         function togglePassword() {
             const input = document.getElementById("password");
             const icon = document.getElementById("togglePasswordIcon");
 
-            // if (input.type === "password") {
-            //     input.type = "text";
-            //     icon.classList.remove("bi-eye-slash");
-            //     icon.classList.add("bi-eye");
-            // } else {
-            //     input.type = "password";
-            //     icon.classList.remove("bi-eye");
-            //     icon.classList.add("bi-eye-slash");
-            // }
-            
-
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            }
         }
     </script>
 </body>

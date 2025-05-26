@@ -84,14 +84,15 @@
     </style>
 </head>
 <body>
+<!-- Navigation bar with links to dashboard, profile editing, registration, and uploaded files -->
 <div class="nav-bar">
     <a href="{{ route('dashboard') }}">Dashboard</a>
         <a href="{{ route('edit-password') }}">Edit Password</a>
         <a href="{{ route('edit-profile') }}">Edit Profile</a>
         <a href="{{ route('register') }}">Register</a>
         <a href="{{ route('uploaded-files') }}">Uploaded Files</a>
-        <!-- <a href="{{route('users')}}">Users</a> -->
-         <!-- Only show the "Users" link to admins -->
+       
+    <!-- Show Users link only if the logged-in user is an Admin -->
     @if(session('user') && session('user')->user_type === 'Admin')
         <a href="{{ route('user.list') }}">Users</a>
         
@@ -100,6 +101,7 @@
     
     <div class="container mt-4">
         <h2>User Management</h2>
+        <!-- Table displaying list of users with options to delete -->
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -111,13 +113,14 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Example user row (replace with dynamic data) -->
+          
                 <tr>
                     <td>1</td>
                     <td>John Doe</td>
                     <td>john@example.com</td>
                     <td>Admin</td>
                     <td>
+                        <!-- Form for deleting a user with confirmation prompt -->
                         <form action="{{ route('user.destroy', 1) }}" method="POST" class="d-inline"
                             onsubmit="return confirm('Are you sure you want to delete this user?');">
                             @csrf
@@ -132,4 +135,5 @@
         </table>
     </div>
 </body>
+
 </html>

@@ -79,33 +79,74 @@
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23d1c1e1' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-</style>
+</style> <!-- Closing style tag if any custom styles were written above -->
 
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ route('dashboard') }}">Dashboard</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-            aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg"> <!-- Bootstrap navbar component, expandable on large screens -->
+    <div class="container-fluid"> <!-- Full-width container for navbar content -->
+
+        <a class="navbar-brand" href="{{ route('dashboard') }}">
+            Dashboard
+        </a> <!-- Brand/logo linking to the dashboard -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+            aria-controls="navbarMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span> <!-- Hamburger icon for collapsing navbar on small screens -->
         </button>
-        <div class="collapse navbar-collapse" id="navbarMenu">
-            <ul class="navbar-nav me-auto">
 
-                <li class="nav-item"><a class="nav-link" href="{{ route('upload.index') }}">Uploaded Files</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('profile.edit') }}">Edit Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('password.edit') }}">Change Password</a></li>
-@php
-    $user = \App\Models\Usersinfo::find(session('user_id'));
-@endphp
+        <div class="collapse navbar-collapse" id="navbarMenu"> <!-- Collapsible content, hidden on smaller screens -->
+            <ul class="navbar-nav me-auto"> <!-- Navigation links aligned to the left -->
 
-@if($user && $user->user_type === 'Admin')
-    <li class="nav-item"><a class="nav-link" href="{{ route('user.list') }}">Users</a></li>
-    <li class="nav-item"><a class="nav-link" href="{{ route('admin.reports') }}">Reports</a></li>
-@endif
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('upload.index') }}">
+                        Uploaded Files
+                    </a>
+                </li> <!-- Link to uploaded files page -->
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profile.edit') }}">
+                        Edit Profile
+                    </a>
+                </li> <!-- Link to edit profile -->
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('password.edit') }}">
+                        Change Password
+                    </a>
+                </li> <!-- Link to change password -->
+
+                @php
+                    $user = \App\Models\Usersinfo::find(session('user_id')); // Fetch user info from session ID
+                @endphp
+
+                @if ($user && $user->user_type === 'Admin') <!-- Check if user is Admin -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.list') }}">
+                            Users
+                        </a>
+                    </li> <!-- Admin link to view user list -->
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.reports') }}">
+                            Reports
+                        </a>
+                    </li> <!-- Admin link to view reports -->
+                @endif
+
             </ul>
         </div>
-        <div class="d-flex">
-            <a class="btn logout-btn" href="{{ route('login') }}">Logout</a>
+
+        <div class="d-flex"> <!-- Right-aligned section (e.g., logout button) -->
+            <a class="btn logout-btn" href="{{ route('login') }}">
+                Logout
+            </a> <!-- Logout button (likely to redirect to login after session ends) -->
         </div>
+
     </div>
 </nav>

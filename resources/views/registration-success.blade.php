@@ -30,15 +30,21 @@
         .strength-strong { color: #28a745; }
     </style>
 </head>
-<body>
+<<body> <!-- Start of the body -->
 
-<div class="container mt-5">
-    <div class="alert alert-success text-center">
-        <h4 class="mb-3">Registration Successful!</h4>
-        <p><strong>Username:</strong> {{ $user->username }}</p>
-        <p><strong>Full Name:</strong> {{ $user->first_name }} {{ $user->last_name }}</p>
-        <p>Please check your email to verify your account before logging in.</p>
-        <a href="{{ route('login') }}" class="btn btn-primary mt-3">Go to Login</a>
+    <div class="container mt-5"> <!-- Bootstrap container with top margin -->
+        <div class="alert alert-success text-center"> <!-- Success alert box, centered text -->
+            <h4 class="mb-3">Registration Successful!</h4> <!-- Heading indicating successful registration -->
+            
+            <p><strong>Username:</strong> {{ $user->username }}</p> <!-- Display the registered username -->
+            <p><strong>Full Name:</strong> {{ $user->first_name }} {{ $user->last_name }}</p> <!-- Display full name -->
+            
+            <p>Please check your email to verify your account before logging in.</p> <!-- Instruction message -->
+            
+            <a href="{{ route('login') }}" class="btn btn-primary mt-3">Go to Login</a> <!-- Button linking to login page -->
+        </div>
     </div>
-</div>
+
+</body> <!-- End of the body -->
+
 </html>

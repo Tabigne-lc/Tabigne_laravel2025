@@ -71,7 +71,7 @@
 
 <body>
 
-    @include('nav')
+    @include('nav') <!-- Include navigation bar -->
 
     <div class="container-fluid mt-4">
         <div class="row">
@@ -79,6 +79,7 @@
             <div class="col-md-3">
                 <div class="sidebar">
                     <h4 class="text-white text-center mb-4">Reports Menu</h4>
+                    <!-- Vertical nav pills for report categories -->
                     <div class="nav flex-column nav-pills" id="reportTabs" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="fileType-tab" data-toggle="pill" href="#fileType" role="tab"
                             aria-controls="fileType" aria-selected="true">File Types</a>
@@ -96,22 +97,23 @@
             <div class="col-md-9">
                 <div class="content-area">
                     <h2 class="text-center mb-4">System Reports</h2>
+                    <!-- Tab panes for each report -->
                     <div class="tab-content" id="reportTabsContent">
                         <div class="tab-pane fade show active" id="fileType" role="tabpanel" aria-labelledby="fileType-tab">
                             <h5>File Types (Pie Chart)</h5>
-                            <canvas id="fileTypeChart"></canvas>
+                            <canvas id="fileTypeChart"></canvas> <!-- Pie chart for file types -->
                         </div>
                         <div class="tab-pane fade" id="userRegistration" role="tabpanel" aria-labelledby="userRegistration-tab">
                             <h5>User Registration Trend (Line Chart)</h5>
-                            <canvas id="userRegistrationChart"></canvas>
+                            <canvas id="userRegistrationChart"></canvas> <!-- Line chart for user registration -->
                         </div>
                         <div class="tab-pane fade" id="birthYear" role="tabpanel" aria-labelledby="birthYear-tab">
                             <h5>Users by Birth Year (Bar Chart)</h5>
-                            <canvas id="birthYearChart"></canvas>
+                            <canvas id="birthYearChart"></canvas> <!-- Bar chart for birth year distribution -->
                         </div>
                         <div class="tab-pane fade" id="fileUpload" role="tabpanel" aria-labelledby="fileUpload-tab">
                             <h5>File Uploads Trend (Line Chart)</h5>
-                            <canvas id="fileUploadChart"></canvas>
+                            <canvas id="fileUploadChart"></canvas> <!-- Line chart for file uploads -->
                         </div>
                     </div>
                 </div>
@@ -119,51 +121,55 @@
         </div>
     </div>
 
-    <!-- Charts -->
+    <!-- Chart.js scripts -->
     <script>
+        // Pie chart for File Types
         new Chart(document.getElementById('fileTypeChart'), {
             type: 'pie',
             data: {
-                labels: {!! json_encode($fileTypes->pluck('type')) !!},
+                labels: {!! json_encode($fileTypes->pluck('type')) !!}, // File type labels
                 datasets: [{
-                    data: {!! json_encode($fileTypes->pluck('count')) !!},
-                    backgroundColor: ['#f87979', '#a2d5f2', '#b4f2e1', '#ffe066'],
+                    data: {!! json_encode($fileTypes->pluck('count')) !!}, // Corresponding counts
+                    backgroundColor: ['#f87979', '#a2d5f2', '#b4f2e1', '#ffe066'], // Colors for slices
                 }]
             }
         });
 
+        // Line chart for User Registration Trend
         new Chart(document.getElementById('userRegistrationChart'), {
             type: 'line',
             data: {
-                labels: {!! json_encode($userRegistrations->pluck('month')) !!},
+                labels: {!! json_encode($userRegistrations->pluck('month')) !!}, // Months
                 datasets: [{
                     label: 'User Registrations',
-                    data: {!! json_encode($userRegistrations->pluck('total')) !!},
+                    data: {!! json_encode($userRegistrations->pluck('total')) !!}, // Number of registrations per month
                     borderColor: '#7b89d5',
                     fill: false
                 }]
             }
         });
 
+        // Bar chart for Users by Birth Year
         new Chart(document.getElementById('birthYearChart'), {
             type: 'bar',
             data: {
-                labels: {!! json_encode($birthYears->pluck('year')) !!},
+                labels: {!! json_encode($birthYears->pluck('year')) !!}, // Birth years
                 datasets: [{
                     label: 'Users by Birth Year',
-                    data: {!! json_encode($birthYears->pluck('count')) !!},
+                    data: {!! json_encode($birthYears->pluck('count')) !!}, // Counts per year
                     backgroundColor: '#9e91c9'
                 }]
             }
         });
 
+        // Line chart for File Uploads Trend
         new Chart(document.getElementById('fileUploadChart'), {
             type: 'line',
             data: {
-                labels: {!! json_encode($fileUploads->pluck('month')) !!},
+                labels: {!! json_encode($fileUploads->pluck('month')) !!}, // Months
                 datasets: [{
                     label: 'File Uploads',
-                    data: {!! json_encode($fileUploads->pluck('total')) !!},
+                    data: {!! json_encode($fileUploads->pluck('total')) !!}, // Upload counts per month
                     borderColor: '#b3a8e1',
                     fill: false
                 }]
@@ -171,8 +177,11 @@
         });
     </script>
 
+    <!-- jQuery and Bootstrap JS for tab functionality -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 
 </html>

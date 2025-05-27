@@ -103,28 +103,36 @@
 </head>
 
 <body>
+
     {{-- Show success message if exists --}}
     @if (session('success'))
+    <!-- Display a Bootstrap success alert if a success message exists in the session -->
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
     @endif
 
+    <!-- Container for the login form -->
     <div class="login-container">
         {{-- Login form --}}
         <form method="POST" action="{{ route('login') }}">
-            @csrf {{-- CSRF protection --}}
+            <!-- Include CSRF token to protect against cross-site request forgery -->
+            @csrf 
             
+            <!-- Form heading -->
             <h2>Login</h2>
 
             {{-- Username input --}}
             <div class="form-group">
                 <label for="username">Username</label>
+                <!-- Username input with Laravel validation styling -->
                 <input type="text" id="username" name="username"
                     class="form-control @error('username') is-invalid @enderror"
                     placeholder="Enter your username" value="{{ old('username') }}">
+
                 {{-- Validation error for username --}}
                 @error('username')
+                <!-- Show validation error if username is invalid -->
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
@@ -133,30 +141,38 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="input-group">
+                    <!-- Password input with Bootstrap classes and Laravel error handling -->
                     <input type="password" id="password" name="password"
                         class="form-control @error('password') is-invalid @enderror"
                         placeholder="Enter your password" required>
+                    <!-- Eye icon to toggle password visibility -->
                     <span class="input-group-text" onclick="togglePassword()">
                         <i id="togglePasswordIcon" class="bi bi-eye-slash"></i>
                     </span>
                 </div>
+                
                 {{-- Validation error for password --}}
                 @error('password')
+                <!-- Show validation error if password is invalid -->
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
             {{-- Submit button --}}
+            <!-- Login button styled with custom class -->
             <button type="submit" class="btn-login">Login</button>
 
             {{-- Link to registration page --}}
+            <!-- Button that redirects to the registration form -->
             <a href="{{ route('register') }}" class="btn btn-outline-secondary">Register</a>
 
             {{-- Links below form for password reset and email verification --}}
             <div class="mt-4 text-center" style="border-top: 1px solid #ccc; padding-top: 15px;">
+                <!-- Link to forgot password form -->
                 <a href="{{ route('password.request') }}" style="display: block; color: #4b70b4; margin-bottom: 10px; font-size: 0.9rem;">
                     Forgot Password?
                 </a>
+                <!-- Link to email verification form -->
                 <a href="{{ route('verify.email.form') }}" style="display: block; color: #4b70b4; font-size: 0.9rem;">
                     Verify Your Email
                 </a>
@@ -165,11 +181,14 @@
             {{-- Show other errors if any --}}
             @if($errors->any())
             <div class="mt-3">
+                <!-- Check if email has specific validation errors -->
                 @if ($errors->has('email'))
+                    <!-- Show first email-related error -->
                     <div class="alert alert-warning text-center">
                         {{ $errors->first('email') }}
                     </div>
                 @else
+                    <!-- Show any other general error -->
                     <div class="alert alert-warning text-danger text-center">{{ $errors->first() }}</div>
                 @endif
             </div>
@@ -180,14 +199,16 @@
     <script>
         // Toggle password visibility when icon clicked
         function togglePassword() {
-            const input = document.getElementById("password");
-            const icon = document.getElementById("togglePasswordIcon");
+            const input = document.getElementById("password"); // Get the password input field
+            const icon = document.getElementById("togglePasswordIcon"); // Get the eye icon
 
+            // If password is hidden, show it and change icon
             if (input.type === "password") {
                 input.type = "text";
                 icon.classList.remove("bi-eye-slash");
                 icon.classList.add("bi-eye");
             } else {
+                // Otherwise, hide it and switch icon back
                 input.type = "password";
                 icon.classList.remove("bi-eye");
                 icon.classList.add("bi-eye-slash");

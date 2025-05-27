@@ -99,29 +99,36 @@
     <div class="reset-card">
         <h2>Reset Your Password</h2>
         
+        <!-- Display success message if password reset email sent -->
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
         @endif
 
+        <!-- Password reset request form -->
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
             <div class="form-group">
                 <label for="email">Email Address</label>
+                <!-- Email input field with old value preserved -->
                 <input type="email" name="email" id="email" value="{{ old('email') }}" required>
+                <!-- Validation error for email -->
                 @error('email')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
+            <!-- Submit button -->
             <button type="submit" class="btn-primary">Send Password Reset Link</button>
         </form>
 
+        <!-- Link to go back to login page -->
         <p class="text-center mt-3">
             <a href="{{ route('login') }}" class="btn-outline-secondary">Back to Login</a>
         </p>
     </div>
 
 </body>
+
 </html>

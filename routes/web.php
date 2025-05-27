@@ -13,85 +13,99 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\ReportController;
+
+// Homepage route, returns the welcome view
 Route::get('/', function () {
     return view('welcome');
 });
 
-
-
+// Login form page
 Route::get('/login', function () {
     return view('login'); 
 })->name('login');
 
-//login Controller
+// Login form submission, handled by AuthController@login
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-//logout Controller
+
+// Logout route, handled by AuthController@logout
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout'); // or Route::post()
 
+// Dashboard page after login
 Route::get('/dashboard', function (){
     return view('dashboard');
 })->name('dashboard');
 
+// Registration form page
 Route::get('/register', function () {
     return view('registration');
 })->name('register');
 
+// Registration form submission, handled by RegistrationController@save
+Route::post('/register', [RegistrationController::class, 'save'])->name('register.save');
 
-
-Route::post('/register', [RegistrationController:: class, 'save'])->name('register.save');
-
-
-
-//Controller for editing name and username
+// Profile edit page for changing name/username, handled by ProfileController@edit
 Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+// Profile update submission, handled by ProfileController@update
 Route::post('/edit-profile', [ProfileController::class, 'update'])->name('profile.update');
 
-//Controller for changing password
-
+// Password edit form, handled by PasswordController@edit
 Route::get('/edit-password', [PasswordController::class, 'edit'])->name('password.edit');
+
+// Password update submission, handled by PasswordController@update
 Route::post('/edit-password', [PasswordController::class, 'update'])->name('password.update');
 
-//Controller route for display user
+// Display list of users, handled by UserController@index
 Route::get('/users', [UserController::class, 'index'])->name('user.list');
 
+// Delete a specific user by ID, handled by UserController@destroy
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
-
-//Controller for upload view and uploading
+// Grouped routes that might require middleware (e.g., auth), currently empty middleware array
 Route::middleware([])->group(function () {
+
+    // Show upload form, handled by UploadController@create
     Route::get('/upload', [UploadController::class, 'create'])->name('upload.create');
+
+    // Handle file upload submission, handled by UploadController@store
     Route::post('/upload', [UploadController::class, 'store'])->name('upload.store');
+
+    // Show list of user’s uploads, handled by UploadController@index
     Route::get('/my-uploads', [UploadController::class, 'index'])->name('upload.index');
+
+    // Download uploaded file, handled by UploadController@download
     Route::get('/download/{upload}', [UploadController::class, 'download'])->name('upload.download');
+
+    // Delete an uploaded file, handled by UploadController@destroy
     Route::delete('/upload/{upload}', [UploadController::class, 'destroy'])->name('upload.destroy');
 
-    //request verification
-Route::get('/verify-email/{token}', [AuthController::class, 'verifyEmail'])->name('verify.email');
+    // Verify email from a token link, handled by AuthController@verifyEmail
+    Route::get('/verify-email/{token}', [AuthController::class, 'verifyEmail'])->name('verify.email');
 
- // reset-password
- // Add this route for password reset request
- Route::get('/verify-email', [EmailVerificationController::class, 'showVerificationForm'])->name('verify.email.form');
- Route::post('/verify-email', [EmailVerificationController::class, 'sendVerificationEmail'])->name('verify.email.send');
- Route::get('/verify-email-token/{token}', [EmailVerificationController::class, 'verifyToken'])->name('verify.email.token');
- 
- 
- 
- 
- Route::get('/forgot-password', [ForgotPasswordController::class, 'showRequestForm'])->name('password.request');
- Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
- 
- 
- 
- Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
- Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.change');
+    // Show email verification request form, handled by EmailVerificationController@showVerificationForm
+    Route::get('/verify-email', [EmailVerificationController::class, 'showVerificationForm'])->name('verify.email.form');
 
- //export route
+    // Send verification email, handled by EmailVerificationController@sendVerificationEmail
+    Route::post('/verify-email', [EmailVerificationController::class, 'sendVerificationEmail'])->name('verify.email.send');
 
+    // Verify token from email, handled by EmailVerificationController@verifyToken
+    Route::get('/verify-email-token/{token}', [EmailVerificationController::class, 'verifyToken'])->name('verify.email.token');
 
-Route::get('/users/export', [UserController::class, 'export'])->name('user.export');
+    // Show forgot password form, handled by ForgotPasswordController@showRequestForm
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'showRequestForm'])->name('password.request');
 
-//report route
+    // Send password reset link to email, handled by ForgotPasswordController@sendResetLink
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
 
+    // Show password reset form using token, handled by ResetPasswordController@showResetForm
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 
-Route::get('/admin/reports', [ReportController::class, 'index'])->name('admin.reports');
+    // Submit new password, handled by ResetPasswordController@reset
+    Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.change');
+
+    // Export user list to file (e.g., Excel), handled by UserController@export
+    Route::get('/users/export', [UserController::class, 'export'])->name('user.export');
+
+    // Admin view of reports, handled by ReportController@index
+    Route::get('/admin/reports', [ReportController::class, 'index'])->name('admin.reports');
 });

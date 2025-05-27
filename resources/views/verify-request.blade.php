@@ -15,17 +15,17 @@
 
         <h3 class="mb-4">Verify Your Email</h3>
 
-        {{-- Success message after sending verification --}}
+        <!-- Success message after sending verification -->
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        {{-- Show first error if any --}}
+        <!-- Show first error if any -->
         @if ($errors->any())
             <div class="alert alert-danger">{{ $errors->first() }}</div>
         @endif
 
-        {{-- Form to submit email for verification --}}
+        <!-- Form to submit email for verification -->
         <form action="{{ route('verify.email.send') }}" method="POST">
             @csrf {{-- CSRF token for security --}}
             <div class="mb-3">

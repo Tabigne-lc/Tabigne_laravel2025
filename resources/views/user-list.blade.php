@@ -199,35 +199,38 @@ h2, .profile-title {
 
 <body>
 
-    @include('nav')
+    @include('nav') <!-- Include navigation bar -->
 
+    <!-- Show success message if exists in session -->
     @if (session('success'))
         <div class="alert alert-success mt-2">{{ session('success') }}</div>
     @endif
 
+    <!-- Show delete error message if validation error exists -->
     @if ($errors->has('delete'))
         <div class="alert alert-danger mt-2">{{ $errors->first('delete') }}</div>
     @endif
 
-    <div class="container mt-5">
-        <h2>User List</h2>
-        <div class="card mb-4 shadow-sm">
+    <div class="container mt-5"> <!-- Main container with top margin -->
+        <h2>User List</h2> <!-- Page title -->
+
+        <div class="card mb-4 shadow-sm"> <!-- Card container for filter form -->
             <div class="card-body">
-                <form method="GET" action="{{ route('user.list') }}">
-                    <div class="row g-3 align-items-end">
+                <form method="GET" action="{{ route('user.list') }}"> <!-- Filter form using GET -->
+                    <div class="row g-3 align-items-end"> <!-- Bootstrap grid with gap and aligned inputs -->
                         <div class="col-md-4">
                             <label for="searchName" class="form-label">Search by Name</label>
                             <input type="text" id="searchName" name="name" placeholder="e.g. John"
-                                value="{{ request('name') }}" class="form-control">
+                                value="{{ request('name') }}" class="form-control"> <!-- Name search input -->
                         </div>
                         <div class="col-md-4">
                             <label for="searchEmail" class="form-label">Search by Email</label>
                             <input type="text" id="searchEmail" name="email" placeholder="e.g. john@example.com"
-                                value="{{ request('email') }}" class="form-control">
+                                value="{{ request('email') }}" class="form-control"> <!-- Email search input -->
                         </div>
-                        <div class="col-md-4 d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">Filter</button>
-                            @if(request('name') || request('email'))
+                        <div class="col-md-4 d-flex gap-2"> <!-- Buttons container with gap -->
+                            <button type="submit" class="btn btn-primary">Filter</button> <!-- Submit filter -->
+                            @if(request('name') || request('email')) <!-- Show clear button if filters active -->
                                 <a href="{{ route('user.list') }}" class="btn btn-outline-secondary">Clear Filters</a>
                             @endif
                         </div>
@@ -236,10 +239,10 @@ h2, .profile-title {
             </div>
         </div>
 
-
+        <!-- Responsive table container -->
         <div class="table-responsive shadow-sm rounded bg-white p-3">
-            <table class="table table-hover align-middle mb-0 bg-white">
-                <thead class="table-primary">
+            <table class="table table-hover align-middle mb-0 bg-white"> <!-- Table with hover, vertical center -->
+                <thead class="table-primary"> <!-- Table header with primary background -->
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
@@ -249,19 +252,20 @@ h2, .profile-title {
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $user)
+                    @foreach($users as $user) <!-- Loop through users -->
                         <tr>
-                            <td>{{ $user->first_name }} {{ $user->last_name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->username }}</td>
-                            <td>{{ ucfirst($user->user_type) }}</td>
+                            <td>{{ $user->first_name }} {{ $user->last_name }}</td> <!-- Display full name -->
+                            <td>{{ $user->email }}</td> <!-- Display email -->
+                            <td>{{ $user->username }}</td> <!-- Display username -->
+                            <td>{{ ucfirst($user->user_type) }}</td> <!-- Display role with first letter capitalized -->
                             <td class="text-center">
                                 <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-inline"
                                     onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                    <!-- Delete form with confirmation -->
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-md">
-                                        <i class="bi bi-trash"></i> Delete
+                                        <i class="bi bi-trash"></i> Delete <!-- Delete button with icon -->
                                     </button>
                                 </form>
                             </td>
@@ -271,10 +275,12 @@ h2, .profile-title {
             </table>
         </div>
 
+        <!-- Pagination controls centered below table -->
         <div class="d-flex justify-content-center mt-4">
             {{ $users->onEachSide(1)->links('pagination::bootstrap-5') }}
         </div>
 
 </body>
+
 
 </html>

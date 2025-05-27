@@ -94,81 +94,81 @@ h2 {
 </head>
 
 <body>
-    @include('nav')
+    @include('nav') <!-- Includes the navigation bar partial view -->
 
-    <div class="container mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="mb-0">My Uploaded Files</h2>
-            <a href="{{ route('upload.create') }}" class="btn btn-primary">Upload Files</a>
+    <div class="container mt-5"> <!-- Bootstrap container with top margin -->
+        <div class="d-flex justify-content-between align-items-center mb-4"> <!-- Flex container for heading and button -->
+            <h2 class="mb-0">My Uploaded Files</h2> <!-- Section heading -->
+            <a href="{{ route('upload.create') }}" class="btn btn-primary">Upload Files</a> <!-- Link to upload page -->
         </div>
 
-        @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        @if (session('success')) <!-- Check if there's a success message in the session -->
+        <div class="alert alert-success">{{ session('success') }}</div> <!-- Display success alert -->
         @endif
 
-        <div class="filter-card mb-4">
-            <form method="GET" action="{{ route('upload.index') }}" class="row gy-2 gx-3 align-items-center">
-                <div class="col-md-4">
+        <div class="filter-card mb-4"> <!-- Container for filter/search form -->
+            <form method="GET" action="{{ route('upload.index') }}" class="row gy-2 gx-3 align-items-center"> <!-- Form with GET method to filter files -->
+                <div class="col-md-4"> <!-- First column: filename input -->
                     <input type="text" name="filename" class="form-control" placeholder="Search by filename"
-                        value="{{ request()->input('filename') }}">
+                        value="{{ request()->input('filename') }}"> <!-- Retain previous search input -->
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4"> <!-- Second column: file type dropdown -->
                     <select name="type" class="form-select">
-                        <option value="">All File Types</option>
-                        <option value="application/pdf" {{ request()->input('type') == 'application/pdf' ? 'selected' : '' }}>PDF</option>
-                        <option value="image/png" {{ request()->input('type') == 'image/png' ? 'selected' : '' }}>PNG</option>
-                        <option value="image/jpeg" {{ request()->input('type') == 'image/jpeg' ? 'selected' : '' }}>JPEG</option>
-                        <option value="application/vnd.openxmlformats-officedocument.wordprocessingml.document" {{ request()->input('type') == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ? 'selected' : '' }}>DOCX</option>
-                        <option value="text/plain" {{ request()->input('type') == 'text/plain' ? 'selected' : '' }}>TXT</option>
+                        <option value="">All File Types</option> <!-- Default option -->
+                        <option value="application/pdf" {{ request()->input('type') == 'application/pdf' ? 'selected' : '' }}>PDF</option> <!-- Selected if current filter is PDF -->
+                        <option value="image/png" {{ request()->input('type') == 'image/png' ? 'selected' : '' }}>PNG</option> <!-- Selected if PNG -->
+                        <option value="image/jpeg" {{ request()->input('type') == 'image/jpeg' ? 'selected' : '' }}>JPEG</option> <!-- Selected if JPEG -->
+                        <option value="application/vnd.openxmlformats-officedocument.wordprocessingml.document" {{ request()->input('type') == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ? 'selected' : '' }}>DOCX</option> <!-- Selected if DOCX -->
+                        <option value="text/plain" {{ request()->input('type') == 'text/plain' ? 'selected' : '' }}>TXT</option> <!-- Selected if TXT -->
                     </select>
                 </div>
-                <div class="col-md-4">
-                    <div class="d-flex flex-wrap justify-content-md-end justify-content-start gap-2">
-                        <button type="submit" class="btn btn-primary">Filter</button>
-                        <a href="{{ route('upload.index') }}" class="btn btn-outline-secondary">Clear</a>
+                <div class="col-md-4"> <!-- Third column: buttons -->
+                    <div class="d-flex flex-wrap justify-content-md-end justify-content-start gap-2"> <!-- Button alignment -->
+                        <button type="submit" class="btn btn-primary">Filter</button> <!-- Submit form to apply filters -->
+                        <a href="{{ route('upload.index') }}" class="btn btn-outline-secondary">Clear</a> <!-- Clear filters and reload -->
                     </div>
                 </div>
             </form>
         </div>
 
-        <div class="table-responsive">
-            <table class="table table-hover table-striped align-middle">
-                <thead class="table-light">
+        <div class="table-responsive"> <!-- Responsive table wrapper -->
+            <table class="table table-hover table-striped align-middle"> <!-- Bootstrap styled table -->
+                <thead class="table-light"> <!-- Light-colored table header -->
                     <tr>
-                        <th>Filename</th>
-                        <th>Type</th>
-                        <th>Uploaded</th>
-                        <th>Actions</th>
+                        <th>Filename</th> <!-- Column: Filename -->
+                        <th>Type</th> <!-- Column: MIME type -->
+                        <th>Uploaded</th> <!-- Column: Upload timestamp -->
+                        <th>Actions</th> <!-- Column: Download/Delete buttons -->
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($uploads as $upload)
+                    @forelse ($uploads as $upload) <!-- Loop through uploads or show message if empty -->
                     <tr>
-                        <td>{{ $upload->original_filename }}</td>
-                        <td>{{ $upload->type }}</td>
-                        <td>{{ $upload->created_at->format('Y-m-d H:i') }}</td>
+                        <td>{{ $upload->original_filename }}</td> <!-- Show original filename -->
+                        <td>{{ $upload->type }}</td> <!-- Show file type -->
+                        <td>{{ $upload->created_at->format('Y-m-d H:i') }}</td> <!-- Show formatted upload date -->
                         <td>
                             <a href="{{ route('upload.download', $upload) }}"
-                                class="btn btn-sm btn-success me-1">Download</a>
-                            <form action="{{ route('upload.destroy', $upload) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
+                                class="btn btn-sm btn-success me-1">Download</a> <!-- Download button -->
+                            <form action="{{ route('upload.destroy', $upload) }}" method="POST" class="d-inline"> <!-- Delete form -->
+                                @csrf <!-- CSRF protection -->
+                                @method('DELETE') <!-- Spoof DELETE request -->
                                 <button type="submit" onclick="return confirm('Are you sure?')"
-                                    class="btn btn-sm btn-danger">Delete</button>
+                                    class="btn btn-sm btn-danger">Delete</button> <!-- Confirm before deleting -->
                             </form>
                         </td>
                     </tr>
-                    @empty
+                    @empty <!-- If no uploads found -->
                     <tr>
-                        <td colspan="4" class="text-center text-muted">No uploaded files found.</td>
+                        <td colspan="4" class="text-center text-muted">No uploaded files found.</td> <!-- Message for empty state -->
                     </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
 
-        <div class="d-flex justify-content-center mt-4">
-            {{ $uploads->onEachSide(1)->links('pagination::bootstrap-5') }}
+        <div class="d-flex justify-content-center mt-4"> <!-- Pagination alignment -->
+            {{ $uploads->onEachSide(1)->links('pagination::bootstrap-5') }} <!-- Laravel pagination with Bootstrap 5 styling -->
         </div>
     </div>
 </body>

@@ -142,28 +142,30 @@
 
 <body>
 
-    @include('nav')
+    @include('nav')  <!-- Include the navigation bar partial -->
 
-    <div class="container">
-        <h1>Upload a file</h1>
+    <div class="container">  <!-- Bootstrap container to center content and add padding -->
+        <h1>Upload a file</h1>  <!-- Page heading -->
 
         {{-- Success message --}}
-        @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        @if (session('success'))  <!-- Check if there is a success message in the session -->
+        <div class="alert alert-success">{{ session('success') }}</div>  <!-- Show success message -->
         @endif
 
         {{-- Upload form --}}
         <form action="{{ route('upload.store') }}" method="POST" enctype="multipart/form-data" class="mb-4">
-            @csrf
-            <div class="form-group">
-                <label for="file">Choose Files</label>
+            <!-- Form sends POST request to upload.store route, supports file uploads, and has bottom margin -->
+            @csrf  <!-- CSRF token for form security -->
+            <div class="form-group">  <!-- Form group wrapper -->
+                <label for="file">Choose Files</label>  <!-- Label for file input -->
                 <input type="file" name="file[]" class="form-control @error('file.*') is-invalid @enderror" multiple
                     required />
-                @error('file.*')
-                <div class="invalid-feedback">{{ $message }}</div>
+                <!-- File input accepts multiple files, marks as invalid if validation error on any file -->
+                @error('file.*')  <!-- Display validation error for any file in the array -->
+                <div class="invalid-feedback">{{ $message }}</div>  <!-- Show error message -->
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Upload</button>
+            <button type="submit" class="btn btn-primary mt-2">Upload</button>  <!-- Submit button -->
         </form>
 
     </div>
